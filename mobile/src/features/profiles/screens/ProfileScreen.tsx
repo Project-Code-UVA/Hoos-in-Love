@@ -1,6 +1,8 @@
+import ProfileMenuOverlay from "../components/ProfileMenuOverlay";
 import { useRouter } from "expo-router";
-import React from "react";
+import React, { useState } from "react";
 import {
+  Alert,
   Image,
   ScrollView,
   StatusBar,
@@ -51,13 +53,14 @@ function getYearImage(yearLabel?: string) {
 export default function ProfileScreen() {
   const profile = useMockProfile();
   const router = useRouter();
+  const [menuVisible, setMenuVisible] = useState(false);
 
   return (
     <View style={styles.screen}>
       <StatusBar barStyle="dark-content" />
 
       <View style={styles.headerFixed}>
-        <ProfileHeader onMenuPress={() => router.push("/profile/edit")} />
+        <ProfileHeader onMenuPress={() => setMenuVisible(true)} />
       </View>
 
       <View style={styles.viewport}>
@@ -147,6 +150,19 @@ export default function ProfileScreen() {
       <View style={styles.footerFixed}>
         <Footer />
       </View>
+
+      <ProfileMenuOverlay
+        visible={menuVisible}
+        onClose={() => setMenuVisible(false)}
+        onEditProfile={() => {
+          setMenuVisible(false);
+          router.push("/profile/edit");
+        }}
+        onEditDoor={() => Alert.alert("Edit Door", "This screen is still in development.")}
+        onReportIssue={() => Alert.alert("Report An Issue", "Reporting is coming later.")}
+        onLogout={() => Alert.alert("Logout", "Sign-in is still in development.")}
+        onDeleteProfile={() => Alert.alert("Delete Account", "Accounts are still in development.")}
+      />
     </View>
   );
 }
