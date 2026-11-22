@@ -158,7 +158,10 @@ export default function ProfileScreen() {
           setMenuVisible(false);
           router.push("/profile/edit");
         }}
-        onEditDoor={() => Alert.alert("Edit Door", "This screen is still in development.")}
+        onEditDoor={() => {
+          setMenuVisible(false);
+          router.push("/profile/door");
+        }}
         onReportIssue={() => Alert.alert("Report An Issue", "Reporting is coming later.")}
         onLogout={() => Alert.alert("Logout", "Sign-in is still in development.")}
         onDeleteProfile={() => Alert.alert("Delete Account", "Accounts are still in development.")}
